@@ -1,95 +1,112 @@
-Case Analysis Transcriptomics – GSE10072
+# 🧬 Case Analysis Transcriptomics – GSE10072
 
- Differential Gene Expression Analysis of Lung Adenocarcinoma
-
----
-
-Pendahuluan
-
-Kanker paru merupakan salah satu penyebab utama kematian akibat kanker di dunia, dengan **lung adenocarcinoma** sebagai subtipe paling umum pada kelompok non-small cell lung cancer (NSCLC). Perubahan ekspresi gen berperan penting dalam proses karsinogenesis, seperti peningkatan proliferasi sel, gangguan siklus sel, serta perubahan jalur pensinyalan.
-
-Pada analisis ini digunakan dataset publik **GSE10072** dari NCBI GEO untuk membandingkan profil ekspresi gen antara jaringan paru normal dan jaringan adenokarsinoma paru menggunakan pendekatan transcriptomics berbasis microarray.
-
-**Tujuan analisis:**
-
-* Mengidentifikasi Differentially Expressed Genes (DEG)
-* Menampilkan visualisasi volcano plot dan heatmap
-* Menginterpretasikan implikasi biologis perubahan ekspresi gen
+## Analisis Differential Gene Expression pada Lung Adenocarcinoma
 
 ---
 
-Metode
+## 📌 Pendahuluan
 
- Dataset
+Kanker paru merupakan salah satu penyebab utama kematian akibat kanker di dunia. Salah satu subtipe yang paling umum adalah **lung adenocarcinoma**, yang ditandai oleh perubahan ekspresi gen yang signifikan dibandingkan jaringan paru normal. Analisis transcriptomics memungkinkan identifikasi gen yang mengalami perubahan ekspresi (Differentially Expressed Genes / DEG) serta pemahaman jalur biologis yang terlibat dalam proses karsinogenesis.
 
-* ID Dataset : GSE10072
-* Platform : Affymetrix HG-U133A (GPL96)
-* Perbandingan : Normal lung vs Lung adenocarcinoma
+Pada studi ini digunakan dataset publik **GSE10072** dari NCBI Gene Expression Omnibus (GEO) untuk membandingkan profil ekspresi gen antara jaringan paru normal dan jaringan adenokarsinoma paru menggunakan pendekatan bioinformatika berbasis R.
 
-Workflow Analisis
+---
 
-1. Pengambilan data menggunakan GEOquery
-2. Preprocessing dan log2 transform
-3. Analisis DEG menggunakan limma
-4. Visualisasi volcano plot dan heatmap top 50 gen
-5. Penyimpanan hasil dalam format CSV
+## ⚙️ Metode
 
- Kriteria DEG
+### Dataset
+
+* Dataset: GSE10072
+* Platform: Affymetrix Human Genome U133A (GPL96)
+* Organisme: *Homo sapiens*
+* Perbandingan: Normal lung vs Lung adenocarcinoma
+
+### Alur Analisis
+
+1. Pengambilan data menggunakan package GEOquery
+2. Preprocessing data dan log2 transform
+3. Analisis Differential Expression menggunakan metode limma
+4. Visualisasi volcano plot dan heatmap Top 50 DEG
+5. Analisis enrichment Gene Ontology (GO) dan KEGG Pathway menggunakan clusterProfiler
+
+### Kriteria DEG
 
 * Adjusted p-value (FDR) < 0.01
 * |log2 Fold Change| > 1
 
 ---
 
- Hasil dan Interpretasi
+## 📊 Hasil dan Interpretasi
 
- Volcano Plot
+### 🌋 1. Gen Upregulation dan Downregulation (Volcano Plot)
+
+Hasil analisis menunjukkan adanya gen yang mengalami peningkatan (upregulated) dan penurunan (downregulated) ekspresi antara jaringan tumor dan jaringan normal. Gen dengan logFC positif menunjukkan peningkatan ekspresi pada adenokarsinoma, sedangkan logFC negatif menunjukkan penurunan ekspresi.
+
+Distribusi gen pada volcano plot memperlihatkan sejumlah gen signifikan yang terlibat dalam proses proliferasi sel, regulasi siklus sel, serta mekanisme respon imun yang berubah pada jaringan kanker.
 
 ![Volcano Plot](volcano_GSE10072.png)
 
-Volcano plot menunjukkan distribusi gen berdasarkan nilai log2 fold change dan signifikansi statistik. Gen dengan logFC positif menunjukkan peningkatan ekspresi pada jaringan adenokarsinoma, sedangkan logFC negatif menunjukkan penurunan ekspresi pada jaringan normal.
-
-Perubahan ekspresi gen yang signifikan mengindikasikan adanya reprogramming transkriptomik yang berhubungan dengan proses tumorigenesis.
-
 ---
 
-Heatmap Top 50 Differentially Expressed Genes
+### 🧬 2. Top 50 Differentially Expressed Genes (Heatmap)
+
+Heatmap Top 50 DEG menunjukkan pola klasterisasi yang jelas antara sampel tumor dan normal. Warna merah menunjukkan gen dengan ekspresi tinggi pada jaringan kanker, sedangkan warna biru menunjukkan ekspresi yang lebih rendah.
+
+Pemisahan klaster yang konsisten mengindikasikan bahwa perubahan ekspresi gen bersifat sistemik dan mampu membedakan kondisi biologis secara signifikan.
 
 ![Heatmap](heatmap_top50.png)
 
-Heatmap memperlihatkan klasterisasi yang jelas antara kelompok tumor dan normal. Pola warna merah menunjukkan peningkatan ekspresi gen pada adenokarsinoma, sedangkan biru menunjukkan penurunan ekspresi.
+---
 
-Pemisahan klaster ini menunjukkan bahwa gen-gen diferensial memiliki peran penting dalam membedakan kondisi biologis kanker paru dan jaringan sehat.
+### 🔬 3. Gene Ontology (GO) Enrichment
+
+Analisis Gene Ontology mengidentifikasi keterlibatan gen diferensial dalam proses biologis seperti:
+
+* cell cycle regulation
+* mitotic nuclear division
+* DNA replication
+
+Proses-proses ini berhubungan dengan peningkatan proliferasi sel yang merupakan karakteristik utama jaringan kanker.
+
+![GO Enrichment](GO_enrichment.png)
 
 ---
 
-Diskusi Biologis
+### 🧭 4. KEGG Pathway Enrichment
 
-Hasil analisis menunjukkan dominasi gen yang berkaitan dengan proliferasi sel dan regulasi siklus sel. Aktivasi jalur proliferatif merupakan karakteristik umum pada jaringan kanker, sedangkan beberapa gen terkait fungsi paru normal mengalami penurunan ekspresi.
+Hasil KEGG pathway enrichment menunjukkan keterlibatan beberapa jalur penting seperti:
 
-Pendekatan transcriptomics memungkinkan identifikasi kandidat biomarker potensial serta memberikan pemahaman lebih dalam mengenai mekanisme molekuler adenokarsinoma paru.
+* pathways in cancer
+* p53 signaling pathway
+* cell cycle pathway
+
+Temuan ini mengindikasikan adanya gangguan regulasi pertumbuhan sel serta aktivasi jalur proliferatif pada adenokarsinoma paru.
+
+![KEGG Enrichment](KEGG_enrichment.png)
 
 ---
 
- kesimpulan
+## ✅ Kesimpulan
 
-Analisis ekspresi gen menggunakan dataset GSE10072 berhasil mengidentifikasi sejumlah Differentially Expressed Genes antara jaringan adenokarsinoma paru dan jaringan paru normal. Visualisasi volcano plot dan heatmap menunjukkan perbedaan pola ekspresi yang jelas dan mendukung interpretasi biologis terkait proses karsinogenesis.
+Analisis transcriptomics menggunakan dataset GSE10072 berhasil mengidentifikasi gen-gen yang mengalami perubahan ekspresi signifikan antara jaringan paru normal dan adenokarsinoma paru. Visualisasi volcano plot dan heatmap menunjukkan perbedaan pola ekspresi yang jelas, sementara analisis enrichment GO dan KEGG mengungkap keterlibatan jalur biologis yang berkaitan dengan proliferasi sel dan mekanisme kanker.
+
+Pendekatan bioinformatika ini memberikan wawasan mengenai mekanisme molekuler kanker paru serta potensi kandidat biomarker untuk penelitian lebih lanjut.
 
 ---
 
- Tools & Packages
+## 💻 Tools dan Packages
 
 * GEOquery
 * limma
 * ggplot2
 * pheatmap
-* hgu133a.db
-* umap
+* clusterProfiler
+* org.Hs.eg.db
 
 ---
 
- Author
+## 👨‍🎓 Author
 
-Nama: Tana Graha Endiarto
+Nama: Tana Graha
 Course: BRSP Transcriptomics
-Institusi:
+Institusi: 
